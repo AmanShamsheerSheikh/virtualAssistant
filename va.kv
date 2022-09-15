@@ -1,0 +1,171 @@
+#:kivy 
+WindowManager:
+    WelcomeScreen:
+    MainScreen:
+    InputScreen:
+    TimerScreen:
+
+
+
+<WelcomeScreen@GridLayout>:
+    name: "WelcomeScreen"
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        spacing: "20dp"
+        cols: 2
+        orientation: "vertical"
+        Image:
+            source: "images/welcome 3.jpg"
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            RoundedButton:
+                text: "Start"
+                size_hint: None, None
+                width: "100dp"
+                height: "100dp"
+                on_press: root.greet()
+                on_release: app.root.current = "MainScreen"
+
+
+<MainScreen>:
+    name: "MainScreen"
+    # spacing: "1dp"
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        cols: 2
+        BoxLayout:
+            orientation: "vertical"
+            Image:
+                source: "images/femaleicon1.png"
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                RoundedButton:
+                    text:"Select"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_press: root.introduction_female()
+                    on_release: app.root.current = "InputScreen"
+        BoxLayout:
+            orientation: "vertical"
+            Image:
+                source: "images/maleicon5.png"
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                RoundedButton:
+                    text:"Select"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_press: root.introduction_male()
+                    on_release: app.root.current = "InputScreen"
+
+
+<InputScreen>:
+    name: "InputScreen"
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        spacing: "100dp"
+        Label:
+            text: root.my_text
+            color: 0,0,0,1
+        BoxLayout:
+            orientation: "horizontal"
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                RoundedButton:
+                    text: "Click"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_press: root.Input()
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                RoundedButton:
+                    text: "Timer"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_release: app.root.current = "TimerScreen"
+
+<TimerScreen>:
+    name: "TimerScreen"
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 3
+        BoxLayout:
+            AnchorLayout:
+                anchor_x:"center"
+                anchor_y:"center"
+                RoundedButton:
+                    text:"Count"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_press: root.on_button_click()
+            Label:
+                text: root.my_text
+                font_name: "fonts/Lcd.ttf"
+                font_size: "80dp"
+                color: .5,.5,.5,1
+            AnchorLayout:
+                anchor_x:"center"
+                anchor_y:"center"
+                Spinner:
+                    id: spinner_id
+                    text: "---Choose----"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    values: ("minutes","seconds","hours")
+                    on_text: root.getTimeValue(spinner_id.text)
+            AnchorLayout:
+                anchor_x:"center"
+                anchor_y:"center"
+                RoundedButton:
+                    text: "Set"
+                    size_hint: None, None
+                    width: "100dp"
+                    height: "100dp"
+                    on_press: root.setTimer()
+                    on_release: app.root.current = "InputScreen"
+
+
+
+
+<RoundedButton@Button>:
+    background_color: 0,0,0,0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba:(0,0,0,1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [56]
